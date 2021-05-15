@@ -4,8 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import PriceSerializers
 from .models import Price
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class PriciView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
     def post(self,request):
         serializer = PriceSerializers(data=request.data)
         if not serializer.is_valid():
